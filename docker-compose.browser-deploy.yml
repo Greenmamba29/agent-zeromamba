@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  agent-zero-mamba:
+    container_name: agent-zero-mamba
+    image: agent0ai/agent-zero:latest
+    ports:
+      - "50080:80"
+    volumes:
+      - ./agent-zero-data:/a0
+    environment:
+      # Timezone
+      - TZ=UTC
+    restart: unless-stopped
+    networks:
+      - agent-zero-network
+
+networks:
+  agent-zero-network:
+    driver: bridge
+
+# To deploy:
+# 1. Run: docker-compose -f docker-compose.browser-deploy.yml up -d
+# 2. Access at: http://localhost:50080
+# 3. Configure API keys in the web UI Settings
+#
+# To stop: docker-compose -f docker-compose.browser-deploy.yml down
+# To view logs: docker-compose -f docker-compose.browser-deploy.yml logs -f
